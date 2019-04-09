@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Which dessert should...</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+	<link rel="stylesheet" href="css/main.css">
+	<!--
+
+	-->
+</head>
+
+<body>
+	<div id="main">
+		<div id="header"><h1>Which dessert should you make?</h1>
+		<form  id="form1">
+			<p>What flavor profile are you in the mood for?</p>
+				<label><input type="radio" name="flavor" id="sweet" value="sweet" />Super-Sweet</label><!--Pudding, Cake-->
+        <label><input type="radio" name="flavor" id="semi" value="semi" />Semi-Sweet</label><!--Parfait, Cookies-->
+				<label><input type="radio" name="flavor" id="savory" value="savory" />Savory</label><!--Banana Bread, Zucchini Bread-->
+
+			<p>Do you want something simple, mid-tier, or difficult?</p>
+				<label><input type="radio" name="type" id="easy" value="easy" />Simple</label><!--Pudding, Parfait-->
+        <label><input type="radio" name="type" id="mid" value="mid" />Mid-tier</label><!--Cookies, Banana Bread,-->
+				<label><input type="radio"  name="type"id="hard" value="hard" />Complicated</label><!--Cake, Zucchini Bread-->
+
+			<p>Do you want something adventurous or traditional?</p>
+				<label><input type="radio" name="personality" id="trad" value="trad" />Traditional</label><!--Cookies, Cake-->
+        <label><input type="radio" name="personality" id="out" value="out" />A little out there</label><!--Banana Bread, Pudding-->
+				<label><input type="radio" name="personality" id="advent" value="advent" />Adventurous</label><!--Parfait, Zucchini Bread-->
+
+			<p>How many people are you feeding?</p>
+				<label><input type="radio" name="amount" id="large" value="large" />A large group</label><!--Cookies, Cake, Zucchini Bread-->
+        <label><input type="radio" name="amount" id="few" value="few" />A friend and myself</label><!--Cookies, Cake, Zucchini Bread-->
+				<label><input type="radio" name="amount" id="little" value="little" />Just me</label><!--Parfait, Banana Bread, Pudding-->
+
+      <p>How much time do you have?</p>
+				<select id="time">
+  				<option value="0">Select One</option>
+  				<option id="pudTIme" value="pudTime">Fewer than 5 minutes</option>
+  				<option id="parTime" value="parTime">Around 15 minutes</option>
+  				<option id="cookTime" value="cookTime">45 minutes to an hour</option>
+				  <option id="cakeTime" value="cakeTime">About an hour and a half</option>
+					<option id="banTime" value="banTime">Two hours at most</option>
+					<option id="zucTime" value="zucTime">All afternoon</option>
+				</select>
+
+			</br>
+			</br>
+			<button type="submit" value="Submit">Submit</button>
+		</form>
+
+		<p id="answer"></p>
+		<p id="answer2"></p>
+		<p id="answer3"></p>
+		<p id="answer4"></p>
+
+	</div>
+</div>
+<script>
+
+	document.getElementById("form1").onsubmit=function() {
+
+		time = document.getElementById("time").value;
+
+	  flavor = document.querySelector('input[name = "flavor"]:checked').value;
+
+	  type = document.querySelector('input[name = "type"]:checked').value;
+
+	  personality = document.querySelector('input[name = "personality"]:checked').value;
+
+		amount = document.querySelector('input[name = "amount"]:checked').value;
+
+	  // initialize score variables
+	  parfait = 0;
+	  pudding = 0;
+
+		cookie = 0;
+		banana = 0;
+
+		cake = 0;
+		zucchini = 0;
+
+	  //function to calculate score for each question
+	  function eachscore(x){
+			//quesiton one
+		if (x == "sweet") {pudding = pudding + 1; cake = cake + 1}
+    if (x == "semi") {parfait = parfait + 1; cookie = cookie + 1}
+	  if (x == "savory") {banana = banana + 1; zucchini = zucchini + 1}
+
+			//question two
+	  if (x == "easy") { pudding = pudding + 1; parfait = parfait + 1}
+    if (x == "mid") { banana = banana + 1; cookie = cookie + 1}
+		if (x == "hard") { cake = cake + 1; zucchini = zucchini + 1}
+
+			//question three
+		if (x == "trad") {cookie = cookie + 1; cake = cake + 1}
+    if (x == "out") {pudding = pudding + 1; banana = banana + 1;}
+		if (x == "advent") { parfait = parfait + 1; zucchini = zucchini + 1}
+
+		 //question four
+		if (x == "large") {cookie = cookie + 1; cake = cake + 1}
+    if (x == "few") {zucchini = zucchini + 1; banana = banana + 1}
+ 		if (x == "little") {parfait = parfait + 1; pudding = pudding + 1}
+
+     //question five
+		if (x == "pudTime") {pudding = pudding + 6}
+    if (x == "parTime") {parfait = parfait + 5; pudding = pudding + 5}
+ 		if (x == "cookTime") {cookie = cookie + 4; parfait = parfait + 4; pudding = pudding + 4}
+    if (x == "cakeTime") {cake = cake + 3; cookie = cookie + 3; parfait = parfait + 3; pudding = pudding + 3}
+    if (x == "banTime") {banana = banana + 2; cake = cake + 2; cookie = cookie + 2; parfait = parfait + 2; pudding = pudding + 2}
+ 		if (x == "zucTime") {zucchini = zucchini + 1; banana = banana + 1; cake = cake + 1; cookie = cookie + 1; parfait = parfait + 1; pudding = pudding + 1}
+	  }
+	  // for the above function, you could also change the 1 to a variable so you could give more points for certain questions
+
+	  //call function for each question
+	  eachscore(eval("flavor"));
+	  eachscore(eval("type"));
+	  eachscore(eval("personality"));
+		eachscore(eval("amount"));
+    eachscore(eval("time"));
+
+
+
+	  all = [pudding, parfait, cookie, banana, cake, zucchini];
+
+	//get the max score  in the array
+	maxscore = Math.max.apply(Math,all);
+
+    //figure out which score is the max score by identifying its index number
+	for(i=0; i<all.length; i++) {
+	if(all[i]==maxscore) {
+	highest = i;
+	}
+	}
+
+
+// object holding scores and feedback
+scores = [{index:0, feedback: "You got a pudding cup. Quick and easy, even if you have a group of friends. Just get a party pack and kick back! </br></br><img src='images/pudImage.jpg' height='300'/>"},
+{index:1, feedback: "You got parfait. Fruit, yogurt, and granola. Filling but still light. Make it in a big batch and share if you need! </br></br><img src='images/parImage.jpg' height='300'/>"},
+{index:2, feedback: "You got chocolate chip cookies. A classic but with deep flavor and a homemade feel. </br></br><img src='images/cookImage.jpg' height='300'/>"},
+{index:3, feedback: "You got banana bread. Got some over-ripe bananas? All you need after that is flour and sugar and you've got a great dessert! </br></br><img src='images/bananaImage.jpg' height='300'/>"},
+{index:4, feedback: "You got cake. Simple but it can vary in so many ways. It takes time but it can be worth it if you are patient with it. </br></br><img src='images/cakeImage.jpg' height='300'/>"},
+{index:5, feedback: "You got zucchini bread. Very different but also very good. It is not something everyone has had but it can be a great new thing to try. </br></br><img src='images/zucchiniImage.jpg' height='300'/>"},
+];
+
+
+//loop to match index to score and reply with feedback
+for(i=0;i<scores.length; i++) {
+if(highest == scores[i].index) {
+document.getElementById("answer4").innerHTML = scores[i].feedback;
+}
+}
+	   return false; // required to not refresh the page; just leave this here
+	   }// end the submit function
+</script>
+</body>
+</html>

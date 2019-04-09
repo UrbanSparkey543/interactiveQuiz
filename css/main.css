@@ -1,0 +1,21 @@
+html{
+color: white;
+background-color: #343a40;
+}
+
+#main{
+  font-family: 'Montserrat', sans-serif;
+  width: 60%;
+  margin: auto;
+  border: 2px solid #fff760;
+  border-radius: 25px;
+}
+
+#header{
+  width: 80%;
+  margin: auto;
+}
+
+label{
+  padding-right: 10px;
+}
